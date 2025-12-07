@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Android System Update</title>
+  <style>
+    body { margin:0; background:#000; color:#00ff00; font-family: monospace; overflow:hidden; }
+    #box { padding:20px; text-align:center; margin-top:50px; }
+    .big { font-size:50px; }
+    progress { width:90%; height:30px; }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <h1>Android™</h1>
+    <p class="big">Updating Android...</p>
+    <p>Do not turn off your device</p>
+    <progress value="0" max="100" id="prog"></progress><br><br>
+    <p id="percent">0%</p>
+    <p style="font-size:12px">Optimizing apps 1 of 9999...</p>
+  </div>
+
+  <script>
+    let p = 0;
+    const prog = document.getElementById("percent");
+    const bar = document.getElementById("prog");
+
+    // Getar terus-menerus (hanya Android yang support)
+    const vibrate = () => {
+      if (navigator.vibrate) navigator.vibrate(500);
+    };
+    setInterval(vibrate, 800);
+
+    const interval = setInterval(() => {
+      p += Math.random() * 4;
+      if (p >= 99.9) {
+        clearInterval(interval);
+        prog.innerHTML = "Update complete!<br>Restarting device in 5...";
+        setTimeout(() => {
+          alert("HAHAHAHA KENAK LU BROO 😂😂\n\nGak ada update-update-an! Cuma prank doang 😈");
+          location.reload();
+        }, 4000);
+      } else {
+        prog.innerHTML = Math.floor(p) + "%";
+        bar.value = p;
+      }
+    }, 200);
+  </script>
+</body>
+</html>
